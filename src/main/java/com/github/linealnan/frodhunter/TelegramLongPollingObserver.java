@@ -29,7 +29,7 @@ public class TelegramLongPollingObserver extends TelegramLongPollingBot {
         try {
             Long chatId = update.getChannelPost().getChatId();
             Integer messageId = update.getChannelPost().getMessageId();
-            removeMessage(chatId, messageId);
+            // removeMessage(chatId, messageId);
         } catch (Exception e) {
             e.printStackTrace();
         }
