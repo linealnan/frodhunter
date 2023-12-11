@@ -13,6 +13,10 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiValidationException;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Component
 public class TelegramLongPollingObserver extends TelegramLongPollingBot {
     static final Logger log = LoggerFactory.getLogger(FrodHunterApplication.class);
@@ -29,7 +33,12 @@ public class TelegramLongPollingObserver extends TelegramLongPollingBot {
         try {
             Long chatId = update.getChannelPost().getChatId();
             Integer messageId = update.getChannelPost().getMessageId();
-            // removeMessage(chatId, messageId);
+            String messageText = update.getChannelPost().getText();
+
+            if (containsUrlString(messageText)) {
+                removeMessage(chatId, messageId);
+                log.info("Было удалено сообщение");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,6 +53,27 @@ public class TelegramLongPollingObserver extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             throw e;
         }
+    }
+
+    private boolean containsUrlString(String str) {
+
+        ArrayList<String> urlList = new ArrayList<>();
+
+        // Regular Expression to extract URL from the string
+        String regexStr = "\\b((?:https?|ftp|file):"
+                + "\\/\\/[a-zA-Z0-9+&@#\\/%?=~_|!:,.;]*"
+                + "[a-zA-Z0-9+&@#\\/%=~_|])";
+
+        Pattern pattern = Pattern.compile(regexStr, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(str);
+
+        // Find and add all matching URLs to the ArrayList
+        while (matcher.find()) {
+            // Add the matched URL to the ArrayList
+            urlList.add(matcher.group());
+        }
+
+        return !urlList.isEmpty();
     }
 
     /**
