@@ -31,13 +31,18 @@ public class TelegramLongPollingObserver extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         try {
-            Long chatId = update.getChannelPost().getChatId();
-            Integer messageId = update.getChannelPost().getMessageId();
-            String messageText = update.getChannelPost().getText();
+            if (update.getChannelPost() != null) {
+                Long chatId = update.getChannelPost().getChatId();
+                Integer messageId = update.getChannelPost().getMessageId();
+                String messageText = update.getChannelPost().getText();
 
-            if (containsUrlString(messageText)) {
-                removeMessage(chatId, messageId);
-                log.info("Было удалено сообщение");
+                if (containsUrlString(messageText)) {
+                    removeMessage(chatId, messageId);
+                    log.info("Было удалено сообщение");
+                }
+            } else {
+                String inputText = update.getMessage().getText();
+                log.info("Неопознанный update");
             }
         } catch (Exception e) {
             e.printStackTrace();
