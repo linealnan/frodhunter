@@ -3,6 +3,8 @@ package com.github.linealnan.frodhunter;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -12,6 +14,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiValidationException;
+import io.reactivex.rxjava3.subjects.PublishSubject;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -20,6 +23,18 @@ import java.util.regex.Pattern;
 @Component
 public class TelegramLongPollingObserver extends TelegramLongPollingBot {
     static final Logger log = LoggerFactory.getLogger(FrodHunterApplication.class);
+
+    final public PublishSubject<Update> onUpdateSubject = PublishSubject.create();
+
+    public static final String hostCheckerDevChannelId = "-1002071536642";
+
+    private ApplicationContext context;
+    @Autowired
+    public void context(ApplicationContext context) { this.context = context; }
+
+    public ApplicationContext getContext() {
+        return this.context;
+    }
 
     @Getter
     @Value("${bot.name}")
@@ -31,14 +46,15 @@ public class TelegramLongPollingObserver extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         try {
-            Long chatId = update.getChannelPost().getChatId();
-            Integer messageId = update.getChannelPost().getMessageId();
-            String messageText = update.getChannelPost().getText();
-
-            if (containsUrlString(messageText)) {
-                removeMessage(chatId, messageId);
-                log.info("Было удалено сообщение");
-            }
+            onUpdateSubject.onNext(update);
+//            Long chatId = update.getChannelPost().getChatId();
+//            Integer messageId = update.getChannelPost().getMessageId();
+//            String messageText = update.getChannelPost().getText();
+//
+//            if (containsUrlString(messageText)) {
+//                removeMessage(chatId, messageId);
+//                log.info("Было удалено сообщение");
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,12 +106,27 @@ public class TelegramLongPollingObserver extends TelegramLongPollingBot {
      * @param chatId
      * @param messageId
      */
-    private void removeMessage(Long chatId, Integer messageId) throws TelegramApiException {
+    public void removeMessage(Long chatId, Integer messageId) throws TelegramApiException {
         try {
             execute(new DeleteMessage(chatId.toString(), messageId));
         } catch (TelegramApiException e) {
             throw e;
         }
+    }
+
+    private void sendMessage(String chatId, String textToSend) throws TelegramApiException {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(textToSend);
+        try {
+            execute(sendMessage);
+        } catch (TelegramApiException e) {
+            throw e;
+        }
+    }
+
+    public void sendMessageToDevChannel(String textToSend) throws TelegramApiException {
+        sendMessage(hostCheckerDevChannelId, textToSend);
     }
 
 }
