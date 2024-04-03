@@ -1,0 +1,50 @@
+<mxfile host="app.diagrams.net" modified="2024-01-03T10:01:43.533Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="Xz79ih0dJme_D56VseCQ" version="22.1.16" type="device">
+  <diagram name="Страница — 1" id="6tFttMAq-SXHPsnmaYr0">
+    <mxGraphModel dx="794" dy="481" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SLjo0uSosG7jpSPXMdoB-1" value="Telegramm API" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="SLjo0uSosG7jpSPXMdoB-8" value="UpdateType&lt;br style=&quot;font-size: 14px;&quot;&gt;identification" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="240" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="SLjo0uSosG7jpSPXMdoB-9" value="Scenario&amp;nbsp;choice" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="600" y="240" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="SLjo0uSosG7jpSPXMdoB-10" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="SLjo0uSosG7jpSPXMdoB-1" target="SLjo0uSosG7jpSPXMdoB-8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="280" as="sourcePoint" />
+            <mxPoint x="430" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SLjo0uSosG7jpSPXMdoB-11" value="Update" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;" vertex="1" connectable="0" parent="SLjo0uSosG7jpSPXMdoB-10">
+          <mxGeometry y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SLjo0uSosG7jpSPXMdoB-12" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="SLjo0uSosG7jpSPXMdoB-8" target="SLjo0uSosG7jpSPXMdoB-9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="280" as="sourcePoint" />
+            <mxPoint x="430" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SLjo0uSosG7jpSPXMdoB-13" value="Parse Command Scenario" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="880" y="80" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="SLjo0uSosG7jpSPXMdoB-14" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="SLjo0uSosG7jpSPXMdoB-9" target="SLjo0uSosG7jpSPXMdoB-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="710" y="280" as="sourcePoint" />
+            <mxPoint x="760" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SLjo0uSosG7jpSPXMdoB-15" value="Message Text" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;" vertex="1" connectable="0" parent="SLjo0uSosG7jpSPXMdoB-14">
+          <mxGeometry x="0.0441" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

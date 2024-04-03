@@ -47,14 +47,6 @@ public class TelegramLongPollingObserver extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         try {
             onUpdateSubject.onNext(update);
-//            Long chatId = update.getChannelPost().getChatId();
-//            Integer messageId = update.getChannelPost().getMessageId();
-//            String messageText = update.getChannelPost().getText();
-//
-//            if (containsUrlString(messageText)) {
-//                removeMessage(chatId, messageId);
-//                log.info("Было удалено сообщение");
-//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
